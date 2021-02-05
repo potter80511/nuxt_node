@@ -26,7 +26,14 @@
 </template>
 
 <script>
-export default {}
+export default {
+  created() {},
+  mounted() {
+    this.$axios.get('http://localhost:3013').then((response) => {
+      console.log(response.data)
+    })
+  },
+}
 </script>
 
 <style>
