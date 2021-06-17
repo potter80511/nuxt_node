@@ -4,35 +4,17 @@
       <Logo />
       <div>{{ title }}</div>
       <div>{{ message }}</div>
-      <h1 class="title">nuxt_node</h1>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
+      <CourseList :courses="getCourses" />
     </div>
   </div>
 </template>
 
 <script>
+import CourseList from '@/components/course_list/CourseList.vue'
+
 export default {
-  async asyncData(context) {
-    const res = await context.$axios('/api/test')
-    console.log(res, 'ressss')
-    return res.data
+  components: {
+    CourseList,
   },
   data() {
     return {
@@ -40,18 +22,38 @@ export default {
       message: '',
     }
   },
+
   created() {
-    // this.$axios('/api/test').then((res) => {
-    //   console.log(res.data)
-    //   const { title, message } = res.data
-    //   this.title = title
-    //   this.message = message
+    // this.$axios('api/courses').then((res) => {
+    //   this.$store.commit('set_courses', {
+    //     ...res.data,
+    //   })
     // })
   },
   mounted() {
-    this.$axios.get('http://localhost:3013').then((res) => {
-      console.log(res.data)
-    })
+    // this.$axios.get('http://localhost:3013').then((res) => {
+    //   console.log(res.data)
+    // })
+  },
+  async fetch(context) {
+    // const { store } = context
+    const result = await context.store.dispatch('get_courses')
+    return result
+    // return $axios('api/courses').then((res) => {
+    //   store.commit('set_courses', {
+    //     ...res.data,
+    //   })
+    // })
+  },
+  async asyncData(context) {
+    const res = await context.$axios('/api/test')
+    // console.log(res, 'ressss')
+    return res.data
+  },
+  computed: {
+    getCourses() {
+      return this.$store.state.courses
+    },
   },
 }
 </script>
