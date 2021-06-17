@@ -2,6 +2,8 @@
   <div class="container">
     <div>
       <Logo />
+      <div>{{ title }}</div>
+      <div>{{ message }}</div>
       <h1 class="title">nuxt_node</h1>
       <div class="links">
         <a
@@ -27,10 +29,28 @@
 
 <script>
 export default {
-  created() {},
+  async asyncData(context) {
+    const res = await context.$axios('/api/test')
+    console.log(res, 'ressss')
+    return res.data
+  },
+  data() {
+    return {
+      title: '',
+      message: '',
+    }
+  },
+  created() {
+    // this.$axios('/api/test').then((res) => {
+    //   console.log(res.data)
+    //   const { title, message } = res.data
+    //   this.title = title
+    //   this.message = message
+    // })
+  },
   mounted() {
-    this.$axios.get('http://localhost:3013').then((response) => {
-      console.log(response.data)
+    this.$axios.get('http://localhost:3013').then((res) => {
+      console.log(res.data)
     })
   },
 }
