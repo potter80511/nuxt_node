@@ -15,10 +15,10 @@ export default defineComponent({
     Album,
   },
   mounted(): void {
-    this.$axios({
-      method: 'get',
-      baseURL: 'http://localhost:3034/api/test',
-    }).then((res: any) => console.log(res.data))
+    // this.$axios({
+    //   method: 'get',
+    //   baseURL: 'http://localhost:3034/api/test',
+    // }).then((res: any) => console.log(res.data))
   },
 })
 </script>
