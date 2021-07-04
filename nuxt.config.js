@@ -1,3 +1,5 @@
+import webpack from 'webpack';
+
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
@@ -23,13 +25,20 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/eslint
     '@nuxtjs/eslint-module',
+    '@nuxt/typescript-build',
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: ['@nuxtjs/axios'],
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
-  build: {},
+  build: {
+    plugins: [
+      new webpack.ProvidePlugin({
+        _M: '~/constants.js'
+      })
+    ]
+  },
   serverMiddleware: [
     { path: '/api', handler: '~/server/api.js' }
   ],
