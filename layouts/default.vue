@@ -1,8 +1,86 @@
 <template>
   <div>
+    <Header @loginClick="loginClick" @registerClick="registerClick" />
+    <LoginModal :modalType="modalType" @loginModalSubmit="loginModalSubmit" />
     <Nuxt />
   </div>
 </template>
+
+<script>
+import Header from '@/components/header/Header.vue'
+import LoginModal from '@/components/modal/LoginModal.vue'
+
+export default {
+  components: {
+    Header,
+    LoginModal,
+  },
+  data() {
+    return {
+      showLoginModal: false,
+      modalType: '',
+    }
+  },
+  methods: {
+    loginClick() {
+      this.$bvModal.show('login-modal')
+      this.modalType = 'login'
+    },
+    registerClick() {
+      this.$bvModal.show('login-modal')
+      this.modalType = 'register'
+    },
+    loginModalSubmit(data) {
+      // console.log(data)
+      const { modalType } = data
+
+      // if (modalType === 'register') {
+      //   this.$axios({
+      //     method: 'post',
+      //     baseURL:
+      //       '' +
+      //       process.env.firebaseApiKey,
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //     },
+      //     data: {
+      //       ...data,
+      //       returnSecureToken: true,
+      //     },
+      //   })
+      //     .then((res) => {
+      //       console.log(res.data)
+      //       this.$bvModal.hide('login-modal')
+      //     })
+      //     .catch((err) => {
+      //       console.log(err.error, 'errerrerr')
+      //     })
+      // }
+
+      const urlName = modalType === 'register' ? 'signUp' : 'signInWithPassword'
+
+      this.$axios({
+        method: 'post',
+        baseURL: `https://identitytoolkit.googleapis.com/v1/accounts:${urlName}?key=${process.env.firebaseApiKey}`,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        data: {
+          ...data,
+          returnSecureToken: true,
+        },
+      })
+        .then((res) => {
+          console.log(res.data)
+          this.$bvModal.hide('login-modal')
+        })
+        .catch((err) => {
+          console.log(err.error, 'errerrerr')
+        })
+    },
+  },
+}
+</script>
 
 <style>
 html {

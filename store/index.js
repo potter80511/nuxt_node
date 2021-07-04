@@ -1,10 +1,10 @@
 // import * as types from '@/constants.js'
 
 export const state = () => ({
-  testData: {
-    aaa: 1,
-    bbb: 'string',
-  },
+  isUserLogin: false,
+  userPicture: '',
+  userName: '',
+  userUid: '',
   courses: [],
 })
 

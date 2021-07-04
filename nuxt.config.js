@@ -26,6 +26,7 @@ export default {
     // https://go.nuxtjs.dev/eslint
     '@nuxtjs/eslint-module',
     '@nuxt/typescript-build',
+    'bootstrap-vue/nuxt',
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
@@ -42,4 +43,8 @@ export default {
   serverMiddleware: [
     { path: '/api', handler: '~/server/api.js' }
   ],
+
+  env: {
+    firebaseApiKey: 'AIzaSyCWJ50Er9Pq5MGmYuFbPVb2WlgXXw8xX2s'
+  },
 }
