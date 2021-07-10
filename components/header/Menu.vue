@@ -9,6 +9,9 @@
       </button>
     </div>
     <div v-else class="navbar-item">
+      <span>
+        <img :src="userPicture" /><span>{{ userName }}</span>
+      </span>
       <button type="button" class="logout">登出</button>
     </div>
   </div>
@@ -17,10 +20,18 @@
 <script>
 export default {
   name: 'Menu',
-  data() {
-    return {
-      isUserLogin: false,
-    }
+  computed: {
+    userName() {
+      return this.$store.state.userName
+    },
+    userPicture() {
+      return !this.$store.state.userPicture
+        ? 'https://via.placeholder.com/150'
+        : this.$store.state.userPicture
+    },
+    isUserLogin() {
+      return this.$store.state.isUserLogin
+    },
   },
 }
 </script>

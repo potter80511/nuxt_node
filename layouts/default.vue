@@ -9,6 +9,7 @@
 <script>
 import Header from '@/components/header/Header.vue'
 import LoginModal from '@/components/modal/LoginModal.vue'
+import jwtDecode from 'jwt-decode'
 
 export default {
   components: {
@@ -19,6 +20,19 @@ export default {
     return {
       showLoginModal: false,
       modalType: '',
+    }
+  },
+  mounted() {
+    if (this.$route.query.id_token && this.$route.query.refresh_token) {
+      const idTokenDecode = jwtDecode(this.$route.query.id_token)
+      this.$store.commit('setUserLogin', {
+        id_token: this.$route.query.id_token,
+        refresh_token: this.$route.query.refresh_token,
+        userUid: idTokenDecode.user_id,
+        userPicture: idTokenDecode.picture,
+        userName: idTokenDecode.name,
+      })
+      window.history.replaceState(null, null, window.location.pathname)
     }
   },
   methods: {

@@ -1,6 +1,7 @@
 <template>
   <b-modal id="login-modal" ref="login-modal" hide-footer :title="modalTitle">
     <div class="d-block">
+      <div class="google_login"><a href="/auth/">Google 登入</a></div>
       <input type="text" placeholder="Your email" v-model="email" />
       <input type="text" placeholder="Your password" v-model="password" />
     </div>

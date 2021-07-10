@@ -9,6 +9,14 @@ export const state = () => ({
 })
 
 export const mutations = {
+  setUserLogin: (state, payload) => {
+    state.isUserLogin = true
+    state.userPicture =
+      payload.userPicture ||
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtzRnZnpLD6Llnr3_J5lTEGxX_px_ceuvsVntvk8Av737-S8XbfkrDN937cTGGvLHGI08&usqp=CAU'
+    state.userName = payload.userName
+    state.userUid = payload.userUid
+  },
   add_test_data: (state, payload) => {
     // state.testData.title = payload.title
     state.testData.aaa++
